@@ -1,0 +1,50 @@
+[
+    {
+        "month": 1,
+        "count": 9230
+    },
+    {
+        "month": 2,
+        "count": 8396
+    },
+    {
+        "month": 3,
+        "count": 10082
+    },
+    {
+        "month": 4,
+        "count": 8655
+    },
+    {
+        "month": 5,
+        "count": 8946
+    },
+    {
+        "month": 6,
+        "count": 8943
+    },
+    {
+        "month": 7,
+        "count": 9197
+    },
+    {
+        "month": 8,
+        "count": 9020
+    },
+    {
+        "month": 9,
+        "count": 9062
+    },
+    {
+        "month": 10,
+        "count": 9496
+    },
+    {
+        "month": 11,
+        "count": 8449
+    },
+    {
+        "month": 12,
+        "count": 9063
+    }
+]

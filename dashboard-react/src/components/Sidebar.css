@@ -1,0 +1,57 @@
+/* Container */
+.sidebar-container {
+  min-height: 100vh;       /* ensures at least full viewport */
+  height: auto;            /* allows it to grow with page content */
+  background: #f5f0fa;     /* light lilac */
+  border-right: 1px solid #e5e7eb;
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  position: sticky;        /* keeps sidebar visible when scrolling */
+  top: 0;                  /* sticky top */
+}
+
+/* Logo */
+.sidebar-logo {
+  font-size: 26px;
+  font-weight: bold;
+  margin-bottom: 40px;
+  padding-left: 8px;
+}
+
+.logo-accent {
+  color: #7b5ea3; /* dark lilac */
+}
+
+/* Navigation */
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Nav items */
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 18px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #374151; /* neutral dark gray */
+  text-decoration: none;
+  border-radius: 12px;
+  transition: all 0.2s ease;
+}
+
+.nav-item:hover {
+  background: #e0d7eb; /* lighter lilac hover */
+  color: #7b5ea3;
+}
+
+.nav-item.active {
+  background: #7b5ea3; /* active lilac */
+  color: #ffffff;
+  box-shadow: 0px 0px 12px rgba(123, 94, 163, 0.5); /* subtle lilac glow */
+}

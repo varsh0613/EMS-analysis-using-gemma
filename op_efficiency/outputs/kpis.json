@@ -1,0 +1,11 @@
+{
+  "avg_response_time": 7.41,
+  "p90_response_time": 12.0,
+  "avg_on_scene_time": 13.97,
+  "avg_total_cycle_time": 22.08,
+  "calls_per_day": 34.31,
+  "busiest_hour": "12:00",
+  "busiest_city": "San Rafael",
+  "avg_turnout_time": 0.7,
+  "sla_8_min_pct": 70.8
+}

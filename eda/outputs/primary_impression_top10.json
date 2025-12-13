@@ -1,0 +1,42 @@
+[
+    {
+        "feature": "traumatic injury",
+        "value": 14679
+    },
+    {
+        "feature": "altered level of consciousness",
+        "value": 7470
+    },
+    {
+        "feature": "other",
+        "value": 7408
+    },
+    {
+        "feature": "traumatic injury (t14.90)",
+        "value": 5139
+    },
+    {
+        "feature": "generalized weakness",
+        "value": 4526
+    },
+    {
+        "feature": "pain (g89.1)",
+        "value": 4400
+    },
+    {
+        "feature": "abdominal pain/problems",
+        "value": 4203
+    },
+    {
+        "feature": "syncope / fainting",
+        "value": 3925
+    },
+    {
+        "feature": "pain (non-traumatic)",
+        "value": 3510
+    },
+    {
+        "feature": "respiratory distress",
+        "value": 3292
+    }
+]

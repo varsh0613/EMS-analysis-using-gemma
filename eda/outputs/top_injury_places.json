@@ -1,0 +1,42 @@
+[
+    {
+        "feature": "residence/assist. living",
+        "value": 30366
+    },
+    {
+        "feature": "street/highway",
+        "value": 9077
+    },
+    {
+        "feature": "nursing home/snf",
+        "value": 1990
+    },
+    {
+        "feature": "commercial establishments  (stores, business, etc.),",
+        "value": 1973
+    },
+    {
+        "feature": "place of recreation/sport",
+        "value": 795
+    },
+    {
+        "feature": "police/jail",
+        "value": 750
+    },
+    {
+        "feature": "public building",
+        "value": 671
+    },
+    {
+        "feature": "medical practitioner office",
+        "value": 669
+    },
+    {
+        "feature": "school/college/university",
+        "value": 277
+    },
+    {
+        "feature": "place of business",
+        "value": 274
+    }
+]

@@ -1,0 +1,68 @@
+{
+  "HIGH": [
+    {
+      "Protocol_Used_by_EMS_Personnel": "Universal Patient Care",
+      "count": 19920
+    },
+    {
+      "Protocol_Used_by_EMS_Personnel": "BLS Routine Medical Care",
+      "count": 10771
+    },
+    {
+      "Protocol_Used_by_EMS_Personnel": "General-Routine Medical Care, ALS",
+      "count": 6501
+    },
+    {
+      "Protocol_Used_by_EMS_Personnel": "Altered Mental Status",
+      "count": 6027
+    },
+    {
+      "Protocol_Used_by_EMS_Personnel": "Other",
+      "count": 4277
+    }
+  ],
+  "LOW": [
+    {
+      "Protocol_Used_by_EMS_Personnel": "Universal Patient Care",
+      "count": 1800
+    },
+    {
+      "Protocol_Used_by_EMS_Personnel": "BLS Routine Medical Care",
+      "count": 1099
+    },
+    {
+      "Protocol_Used_by_EMS_Personnel": "Other",
+      "count": 326
+    },
+    {
+      "Protocol_Used_by_EMS_Personnel": "Unknown",
+      "count": 290
+    },
+    {
+      "Protocol_Used_by_EMS_Personnel": "General-Routine Medical Care, ALS",
+      "count": 197
+    }
+  ],
+  "MEDIUM": [
+    {
+      "Protocol_Used_by_EMS_Personnel": "General-Routine Medical Care, ALS",
+      "count": 7506
+    },
+    {
+      "Protocol_Used_by_EMS_Personnel": "Universal Patient Care",
+      "count": 7063
+    },
+    {
+      "Protocol_Used_by_EMS_Personnel": "BLS Routine Medical Care",
+      "count": 2837
+    },
+    {
+      "Protocol_Used_by_EMS_Personnel": "Syncope",
+      "count": 2675
+    },
+    {
+      "Protocol_Used_by_EMS_Personnel": "General-Pain Management",
+      "count": 1374
+    }
+  ]
+}

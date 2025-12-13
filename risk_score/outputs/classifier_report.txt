@@ -1,0 +1,33 @@
+=== DATA SPLIT ===
+Train: 75,977 rows (70%)
+Test: 32,562 rows (30%)
+
+=== STRATIFIED CLASS DISTRIBUTION ===
+Train:
+risk_label
+HIGH      49540
+MEDIUM    23006
+LOW        3431
+
+Test:
+risk_label
+HIGH      21232
+MEDIUM     9860
+LOW        1470
+
+=== Classification Report ===
+              precision    recall  f1-score   support
+
+         LOW       1.00      1.00      1.00      1470
+      MEDIUM       1.00      1.00      1.00      9860
+        HIGH       1.00      1.00      1.00     21232
+
+    accuracy                           1.00     32562
+   macro avg       1.00      1.00      1.00     32562
+weighted avg       1.00      1.00      1.00     32562
+
+
+=== Confusion Matrix ===
+[[ 1468     0     2]
+ [    0  9852     8]
+ [    4    14 21214]]

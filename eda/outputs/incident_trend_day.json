@@ -1,0 +1,30 @@
+[
+    {
+        "day": "Friday",
+        "count": 15904
+    },
+    {
+        "day": "Monday",
+        "count": 15619
+    },
+    {
+        "day": "Saturday",
+        "count": 15820
+    },
+    {
+        "day": "Sunday",
+        "count": 15031
+    },
+    {
+        "day": "Thursday",
+        "count": 15377
+    },
+    {
+        "day": "Tuesday",
+        "count": 15371
+    },
+    {
+        "day": "Wednesday",
+        "count": 15417
+    }
+]

@@ -1,0 +1,42 @@
+[
+    {
+        "feature": "marin general hospital",
+        "value": 53284
+    },
+    {
+        "feature": "kaiser terra linda",
+        "value": 17249
+    },
+    {
+        "feature": "novato community hospital",
+        "value": 15182
+    },
+    {
+        "feature": "kaiser permanente, san rafael",
+        "value": 9608
+    },
+    {
+        "feature": "california pacific medical center (cpmc)",
+        "value": 348
+    },
+    {
+        "feature": "petaluma valley hospital",
+        "value": 244
+    },
+    {
+        "feature": "ucsf benioff children's hospital",
+        "value": 218
+    },
+    {
+        "feature": "santa rosa memorial hospital, montgomery",
+        "value": 95
+    },
+    {
+        "feature": "kaiser permanente, san francisco",
+        "value": 92
+    },
+    {
+        "feature": "ucsf medical center at parnassus",
+        "value": 86
+    }
+]

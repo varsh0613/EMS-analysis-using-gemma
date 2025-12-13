@@ -1,0 +1,345 @@
+[
+  {
+    "city": "Alto",
+    "incidents": 206,
+    "avg_response": 6.39,
+    "p90_response": 10.0,
+    "avg_turnout": 0.01
+  },
+  {
+    "city": "Belvedere",
+    "incidents": 704,
+    "avg_response": 9.1,
+    "p90_response": 14.0,
+    "avg_turnout": 0.67
+  },
+  {
+    "city": "Bodega Bay",
+    "incidents": 2,
+    "avg_response": 7.0,
+    "p90_response": 7.8,
+    "avg_turnout": 0.0
+  },
+  {
+    "city": "Bolinas",
+    "incidents": 478,
+    "avg_response": 22.31,
+    "p90_response": 33.0,
+    "avg_turnout": 1.14
+  },
+  {
+    "city": "Carmel",
+    "incidents": 1,
+    "avg_response": 0.0,
+    "p90_response": 0.0,
+    "avg_turnout": 0.0
+  },
+  {
+    "city": "Corte Madera",
+    "incidents": 3570,
+    "avg_response": 5.95,
+    "p90_response": 9.1,
+    "avg_turnout": 0.68
+  },
+  {
+    "city": "Dillon Beach",
+    "incidents": 59,
+    "avg_response": 12.75,
+    "p90_response": 18.0,
+    "avg_turnout": 1.31
+  },
+  {
+    "city": "Dogtown",
+    "incidents": 5,
+    "avg_response": 12.6,
+    "p90_response": 18.4,
+    "avg_turnout": 0.2
+  },
+  {
+    "city": "Fairfax",
+    "incidents": 3124,
+    "avg_response": 11.02,
+    "p90_response": 16.0,
+    "avg_turnout": 0.83
+  },
+  {
+    "city": "Forest Knolls",
+    "incidents": 355,
+    "avg_response": 9.63,
+    "p90_response": 16.0,
+    "avg_turnout": 0.85
+  },
+  {
+    "city": "Golden Gate National Recreation Area",
+    "incidents": 132,
+    "avg_response": 11.24,
+    "p90_response": 18.0,
+    "avg_turnout": 0.0
+  },
+  {
+    "city": "Greenbrae",
+    "incidents": 591,
+    "avg_response": 7.79,
+    "p90_response": 11.0,
+    "avg_turnout": 0.9
+  },
+  {
+    "city": "Inverness",
+    "incidents": 446,
+    "avg_response": 13.35,
+    "p90_response": 25.0,
+    "avg_turnout": 1.02
+  },
+  {
+    "city": "Kentfield",
+    "incidents": 2639,
+    "avg_response": 6.51,
+    "p90_response": 10.2,
+    "avg_turnout": 0.68
+  },
+  {
+    "city": "Lagunitas",
+    "incidents": 250,
+    "avg_response": 10.96,
+    "p90_response": 17.0,
+    "avg_turnout": 0.78
+  },
+  {
+    "city": "Larkspur",
+    "incidents": 5260,
+    "avg_response": 7.31,
+    "p90_response": 10.0,
+    "avg_turnout": 0.68
+  },
+  {
+    "city": "Los Gatos",
+    "incidents": 1,
+    "avg_response": 14.0,
+    "p90_response": 14.0,
+    "avg_turnout": 0.0
+  },
+  {
+    "city": "Marin",
+    "incidents": 1414,
+    "avg_response": 7.1,
+    "p90_response": 10.0,
+    "avg_turnout": 0.79
+  },
+  {
+    "city": "Marinwood",
+    "incidents": 673,
+    "avg_response": 8.03,
+    "p90_response": 11.0,
+    "avg_turnout": 0.73
+  },
+  {
+    "city": "Marshall",
+    "incidents": 107,
+    "avg_response": 23.41,
+    "p90_response": 36.0,
+    "avg_turnout": 1.5
+  },
+  {
+    "city": "Mill Valley",
+    "incidents": 9916,
+    "avg_response": 6.88,
+    "p90_response": 11.0,
+    "avg_turnout": 0.75
+  },
+  {
+    "city": "Mount Tamalpais",
+    "incidents": 66,
+    "avg_response": 21.5,
+    "p90_response": 36.0,
+    "avg_turnout": 0.0
+  },
+  {
+    "city": "Muir Beach",
+    "incidents": 130,
+    "avg_response": 17.08,
+    "p90_response": 24.0,
+    "avg_turnout": 1.86
+  },
+  {
+    "city": "Muir Beach/Ocean/Lake/River",
+    "incidents": 4,
+    "avg_response": 17.75,
+    "p90_response": 25.4,
+    "avg_turnout": 1.75
+  },
+  {
+    "city": "Nicasio",
+    "incidents": 174,
+    "avg_response": 15.36,
+    "p90_response": 23.0,
+    "avg_turnout": 0.82
+  },
+  {
+    "city": "Novato",
+    "incidents": 23956,
+    "avg_response": 6.88,
+    "p90_response": 11.0,
+    "avg_turnout": 0.61
+  },
+  {
+    "city": "Olema",
+    "incidents": 166,
+    "avg_response": 11.75,
+    "p90_response": 19.5,
+    "avg_turnout": 1.19
+  },
+  {
+    "city": "Paso Robles",
+    "incidents": 1,
+    "avg_response": 5.0,
+    "p90_response": 5.0,
+    "avg_turnout": 0.0
+  },
+  {
+    "city": "Petaluma",
+    "incidents": 47,
+    "avg_response": 13.77,
+    "p90_response": 18.8,
+    "avg_turnout": 1.13
+  },
+  {
+    "city": "Pinole",
+    "incidents": 1,
+    "avg_response": 14.0,
+    "p90_response": 14.0,
+    "avg_turnout": 0.0
+  },
+  {
+    "city": "Point Reyes",
+    "incidents": 893,
+    "avg_response": 7.55,
+    "p90_response": 22.0,
+    "avg_turnout": 0.8
+  },
+  {
+    "city": "Ross",
+    "incidents": 572,
+    "avg_response": 6.69,
+    "p90_response": 12.0,
+    "avg_turnout": 0.81
+  },
+  {
+    "city": "Salinas",
+    "incidents": 1,
+    "avg_response": 4.0,
+    "p90_response": 4.0,
+    "avg_turnout": 0.0
+  },
+  {
+    "city": "San Anselmo",
+    "incidents": 3738,
+    "avg_response": 8.72,
+    "p90_response": 14.0,
+    "avg_turnout": 0.7
+  },
+  {
+    "city": "San Francisco",
+    "incidents": 12,
+    "avg_response": 10.42,
+    "p90_response": 16.3,
+    "avg_turnout": 2.58
+  },
+  {
+    "city": "San Geronimo",
+    "incidents": 253,
+    "avg_response": 8.05,
+    "p90_response": 12.0,
+    "avg_turnout": 0.65
+  },
+  {
+    "city": "San Pablo",
+    "incidents": 1,
+    "avg_response": 10.0,
+    "p90_response": 10.0,
+    "avg_turnout": 0.0
+  },
+  {
+    "city": "San Quentin",
+    "incidents": 818,
+    "avg_response": 10.15,
+    "p90_response": 15.0,
+    "avg_turnout": 0.33
+  },
+  {
+    "city": "San Rafael",
+    "incidents": 32081,
+    "avg_response": 6.99,
+    "p90_response": 11.0,
+    "avg_turnout": 0.71
+  },
+  {
+    "city": "Santa Rosa",
+    "incidents": 3,
+    "avg_response": 29.0,
+    "p90_response": 63.6,
+    "avg_turnout": 0.0
+  },
+  {
+    "city": "Sausalito",
+    "incidents": 4495,
+    "avg_response": 6.71,
+    "p90_response": 12.0,
+    "avg_turnout": 0.76
+  },
+  {
+    "city": "Sleepy Hollow",
+    "incidents": 3,
+    "avg_response": 12.0,
+    "p90_response": 13.4,
+    "avg_turnout": 1.0
+  },
+  {
+    "city": "Stinson Beach",
+    "incidents": 494,
+    "avg_response": 15.95,
+    "p90_response": 32.0,
+    "avg_turnout": 1.6
+  },
+  {
+    "city": "Stinson Beach/Ocean/Lake/River",
+    "incidents": 17,
+    "avg_response": 8.94,
+    "p90_response": 28.0,
+    "avg_turnout": 0.82
+  },
+  {
+    "city": "Tiburon",
+    "incidents": 2904,
+    "avg_response": 7.66,
+    "p90_response": 12.0,
+    "avg_turnout": 0.71
+  },
+  {
+    "city": "Tomales",
+    "incidents": 69,
+    "avg_response": 11.84,
+    "p90_response": 25.2,
+    "avg_turnout": 0.71
+  },
+  {
+    "city": "Unknown",
+    "incidents": 6,
+    "avg_response": 5.5,
+    "p90_response": 8.5,
+    "avg_turnout": 1.33
+  },
+  {
+    "city": "Woodacre",
+    "incidents": 515,
+    "avg_response": 5.53,
+    "p90_response": 10.6,
+    "avg_turnout": 0.71
+  },
+  {
+    "city": "York",
+    "incidents": 1,
+    "avg_response": 9.0,
+    "p90_response": 9.0,
+    "avg_turnout": 1.0
+  }
+]

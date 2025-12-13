@@ -1,0 +1,9 @@
+{
+    "total_incidents": 108539,
+    "num_hospitals": 60,
+    "num_primary_impressions": 167,
+    "average_patient_age": 62.86717216852929,
+    "most_common_injury_place": {
+        "residence/assist. living": 30366
+    }
+}

@@ -1,0 +1,18 @@
+[
+    {
+        "feature": "female",
+        "value": 55589
+    },
+    {
+        "feature": "male",
+        "value": 52706
+    },
+    {
+        "feature": "not reported",
+        "value": 159
+    },
+    {
+        "feature": "unknown (unable to determine)",
+        "value": 84
+    }
+]

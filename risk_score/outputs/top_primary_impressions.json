@@ -1,0 +1,60 @@
+{
+  "HIGH": [
+    {
+      "primary_impression": "Traumatic injury",
+      "count": 8518
+    },
+    {
+      "primary_impression": "Altered Level of Consciousness",
+      "count": 7466
+    },
+    {
+      "primary_impression": "Other",
+      "count": 7373
+    },
+    {
+      "primary_impression": "Generalized Weakness",
+      "count": 4526
+    },
+    {
+      "primary_impression": "Abdominal Pain/Problems",
+      "count": 4200
+    }
+  ],
+  "LOW": [
+    {
+      "primary_impression": "Behavioral / Psychiatric Disorder",
+      "count": 1996
+    },
+    {
+      "primary_impression": "No Complaints or Injury/Illness Noted",
+      "count": 1519
+    },
+    {
+      "primary_impression": "Behavioral / Psychiatric  - Disorder/Issue (F99)",
+      "count": 520
+    }
+  ],
+  "MEDIUM": [
+    {
+      "primary_impression": "Traumatic injury",
+      "count": 6161
+    },
+    {
+      "primary_impression": "Pain (G89.1)",
+      "count": 4046
+    },
+    {
+      "primary_impression": "Syncope / Fainting",
+      "count": 3522
+    },
+    {
+      "primary_impression": "Traumatic Injury (T14.90)",
+      "count": 3086
+    },
+    {
+      "primary_impression": "Alcohol Intoxication (F10.92)",
+      "count": 615
+    }
+  ]
+}
