@@ -1,0 +1,127 @@
+{
+  "peak_hours": [
+    {
+      "hour": "11:00",
+      "delayed_incident_count": 1916,
+      "pct_of_total_delays": 6.47
+    },
+    {
+      "hour": "14:00",
+      "delayed_incident_count": 1877,
+      "pct_of_total_delays": 6.34
+    },
+    {
+      "hour": "13:00",
+      "delayed_incident_count": 1863,
+      "pct_of_total_delays": 6.3
+    },
+    {
+      "hour": "15:00",
+      "delayed_incident_count": 1779,
+      "pct_of_total_delays": 6.01
+    },
+    {
+      "hour": "10:00",
+      "delayed_incident_count": 1765,
+      "pct_of_total_delays": 5.96
+    },
+    {
+      "hour": "12:00",
+      "delayed_incident_count": 1739,
+      "pct_of_total_delays": 5.88
+    },
+    {
+      "hour": "16:00",
+      "delayed_incident_count": 1703,
+      "pct_of_total_delays": 5.75
+    },
+    {
+      "hour": "09:00",
+      "delayed_incident_count": 1631,
+      "pct_of_total_delays": 5.51
+    },
+    {
+      "hour": "17:00",
+      "delayed_incident_count": 1552,
+      "pct_of_total_delays": 5.24
+    },
+    {
+      "hour": "08:00",
+      "delayed_incident_count": 1343,
+      "pct_of_total_delays": 4.54
+    },
+    {
+      "hour": "18:00",
+      "delayed_incident_count": 1340,
+      "pct_of_total_delays": 4.53
+    },
+    {
+      "hour": "07:00",
+      "delayed_incident_count": 1179,
+      "pct_of_total_delays": 3.98
+    },
+    {
+      "hour": "19:00",
+      "delayed_incident_count": 1131,
+      "pct_of_total_delays": 3.82
+    },
+    {
+      "hour": "21:00",
+      "delayed_incident_count": 983,
+      "pct_of_total_delays": 3.32
+    },
+    {
+      "hour": "20:00",
+      "delayed_incident_count": 973,
+      "pct_of_total_delays": 3.29
+    },
+    {
+      "hour": "22:00",
+      "delayed_incident_count": 864,
+      "pct_of_total_delays": 2.92
+    },
+    {
+      "hour": "06:00",
+      "delayed_incident_count": 841,
+      "pct_of_total_delays": 2.84
+    },
+    {
+      "hour": "23:00",
+      "delayed_incident_count": 826,
+      "pct_of_total_delays": 2.79
+    },
+    {
+      "hour": "00:00",
+      "delayed_incident_count": 771,
+      "pct_of_total_delays": 2.61
+    },
+    {
+      "hour": "05:00",
+      "delayed_incident_count": 765,
+      "pct_of_total_delays": 2.59
+    },
+    {
+      "hour": "01:00",
+      "delayed_incident_count": 746,
+      "pct_of_total_delays": 2.52
+    },
+    {
+      "hour": "02:00",
+      "delayed_incident_count": 697,
+      "pct_of_total_delays": 2.36
+    },
+    {
+      "hour": "03:00",
+      "delayed_incident_count": 687,
+      "pct_of_total_delays": 2.32
+    },
+    {
+      "hour": "04:00",
+      "delayed_incident_count": 622,
+      "pct_of_total_delays": 2.1
+    }
+  ],
+  "worst_hour": "11:00",
+  "best_hour": "04:00",
+  "total_delayed_incidents": 29593
+}

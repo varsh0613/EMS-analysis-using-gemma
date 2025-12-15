@@ -2,121 +2,145 @@
   {
     "hour": "00:00",
     "avg_response": 7.81,
-    "count": 2323
+    "count": 2323,
+    "is_peak_delay": true
   },
   {
     "hour": "01:00",
     "avg_response": 8.13,
-    "count": 2149
+    "count": 2149,
+    "is_peak_delay": true
   },
   {
     "hour": "02:00",
     "avg_response": 8.21,
-    "count": 1938
+    "count": 1938,
+    "is_peak_delay": true
   },
   {
     "hour": "03:00",
     "avg_response": 8.22,
-    "count": 1829
+    "count": 1829,
+    "is_peak_delay": true
   },
   {
     "hour": "04:00",
     "avg_response": 8.0,
-    "count": 1771
+    "count": 1771,
+    "is_peak_delay": true
   },
   {
     "hour": "05:00",
     "avg_response": 8.23,
-    "count": 2024
+    "count": 2024,
+    "is_peak_delay": true
   },
   {
     "hour": "06:00",
     "avg_response": 7.94,
-    "count": 2480
+    "count": 2480,
+    "is_peak_delay": true
   },
   {
     "hour": "07:00",
     "avg_response": 7.88,
-    "count": 3585
+    "count": 3585,
+    "is_peak_delay": true
   },
   {
     "hour": "08:00",
     "avg_response": 7.45,
-    "count": 4590
+    "count": 4590,
+    "is_peak_delay": false
   },
   {
     "hour": "09:00",
     "avg_response": 7.43,
-    "count": 5543
+    "count": 5543,
+    "is_peak_delay": false
   },
   {
     "hour": "10:00",
     "avg_response": 7.39,
-    "count": 6230
+    "count": 6230,
+    "is_peak_delay": false
   },
   {
     "hour": "11:00",
     "avg_response": 7.5,
-    "count": 6315
+    "count": 6315,
+    "is_peak_delay": false
   },
   {
     "hour": "12:00",
     "avg_response": 7.26,
-    "count": 6309
+    "count": 6309,
+    "is_peak_delay": false
   },
   {
     "hour": "13:00",
     "avg_response": 7.43,
-    "count": 6300
+    "count": 6300,
+    "is_peak_delay": false
   },
   {
     "hour": "14:00",
     "avg_response": 7.49,
-    "count": 6160
+    "count": 6160,
+    "is_peak_delay": false
   },
   {
     "hour": "15:00",
     "avg_response": 7.45,
-    "count": 5874
+    "count": 5874,
+    "is_peak_delay": false
   },
   {
     "hour": "16:00",
     "avg_response": 7.31,
-    "count": 5755
+    "count": 5755,
+    "is_peak_delay": false
   },
   {
     "hour": "17:00",
     "avg_response": 7.2,
-    "count": 5519
+    "count": 5519,
+    "is_peak_delay": false
   },
   {
     "hour": "18:00",
     "avg_response": 6.84,
-    "count": 5220
+    "count": 5220,
+    "is_peak_delay": false
   },
   {
     "hour": "19:00",
     "avg_response": 6.76,
-    "count": 4946
+    "count": 4946,
+    "is_peak_delay": false
   },
   {
     "hour": "20:00",
     "avg_response": 6.8,
-    "count": 4395
+    "count": 4395,
+    "is_peak_delay": false
   },
   {
     "hour": "21:00",
     "avg_response": 7.02,
-    "count": 3898
+    "count": 3898,
+    "is_peak_delay": false
   },
   {
     "hour": "22:00",
     "avg_response": 7.18,
-    "count": 3351
+    "count": 3351,
+    "is_peak_delay": false
   },
   {
     "hour": "23:00",
     "avg_response": 7.61,
-    "count": 2850
+    "count": 2850,
+    "is_peak_delay": true
   }
 ]

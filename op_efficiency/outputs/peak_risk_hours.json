@@ -1,0 +1,176 @@
+{
+  "critical_windows": [
+    {
+      "hour": "14:00",
+      "high_risk_incidents": 4920,
+      "delayed_high_risk_incidents": 1460,
+      "delayed_pct": 29.67,
+      "avg_response": 7.37
+    },
+    {
+      "hour": "11:00",
+      "high_risk_incidents": 5010,
+      "delayed_high_risk_incidents": 1429,
+      "delayed_pct": 28.52,
+      "avg_response": 7.31
+    },
+    {
+      "hour": "13:00",
+      "high_risk_incidents": 4998,
+      "delayed_high_risk_incidents": 1397,
+      "delayed_pct": 27.95,
+      "avg_response": 7.21
+    },
+    {
+      "hour": "10:00",
+      "high_risk_incidents": 5086,
+      "delayed_high_risk_incidents": 1374,
+      "delayed_pct": 27.02,
+      "avg_response": 7.19
+    },
+    {
+      "hour": "15:00",
+      "high_risk_incidents": 4735,
+      "delayed_high_risk_incidents": 1350,
+      "delayed_pct": 28.51,
+      "avg_response": 7.24
+    },
+    {
+      "hour": "12:00",
+      "high_risk_incidents": 5000,
+      "delayed_high_risk_incidents": 1326,
+      "delayed_pct": 26.52,
+      "avg_response": 7.06
+    },
+    {
+      "hour": "16:00",
+      "high_risk_incidents": 4626,
+      "delayed_high_risk_incidents": 1307,
+      "delayed_pct": 28.25,
+      "avg_response": 7.11
+    },
+    {
+      "hour": "09:00",
+      "high_risk_incidents": 4531,
+      "delayed_high_risk_incidents": 1275,
+      "delayed_pct": 28.14,
+      "avg_response": 7.34
+    },
+    {
+      "hour": "17:00",
+      "high_risk_incidents": 4484,
+      "delayed_high_risk_incidents": 1204,
+      "delayed_pct": 26.85,
+      "avg_response": 7.09
+    },
+    {
+      "hour": "18:00",
+      "high_risk_incidents": 4237,
+      "delayed_high_risk_incidents": 1041,
+      "delayed_pct": 24.57,
+      "avg_response": 6.7
+    },
+    {
+      "hour": "08:00",
+      "high_risk_incidents": 3682,
+      "delayed_high_risk_incidents": 1040,
+      "delayed_pct": 28.25,
+      "avg_response": 7.39
+    },
+    {
+      "hour": "07:00",
+      "high_risk_incidents": 2957,
+      "delayed_high_risk_incidents": 929,
+      "delayed_pct": 31.42,
+      "avg_response": 7.78
+    },
+    {
+      "hour": "19:00",
+      "high_risk_incidents": 3998,
+      "delayed_high_risk_incidents": 876,
+      "delayed_pct": 21.91,
+      "avg_response": 6.65
+    },
+    {
+      "hour": "21:00",
+      "high_risk_incidents": 3170,
+      "delayed_high_risk_incidents": 766,
+      "delayed_pct": 24.16,
+      "avg_response": 6.93
+    },
+    {
+      "hour": "20:00",
+      "high_risk_incidents": 3479,
+      "delayed_high_risk_incidents": 746,
+      "delayed_pct": 21.44,
+      "avg_response": 6.68
+    },
+    {
+      "hour": "06:00",
+      "high_risk_incidents": 2036,
+      "delayed_high_risk_incidents": 678,
+      "delayed_pct": 33.3,
+      "avg_response": 7.93
+    },
+    {
+      "hour": "22:00",
+      "high_risk_incidents": 2612,
+      "delayed_high_risk_incidents": 650,
+      "delayed_pct": 24.89,
+      "avg_response": 7.04
+    },
+    {
+      "hour": "23:00",
+      "high_risk_incidents": 2244,
+      "delayed_high_risk_incidents": 648,
+      "delayed_pct": 28.88,
+      "avg_response": 7.53
+    },
+    {
+      "hour": "05:00",
+      "high_risk_incidents": 1708,
+      "delayed_high_risk_incidents": 617,
+      "delayed_pct": 36.12,
+      "avg_response": 8.15
+    },
+    {
+      "hour": "01:00",
+      "high_risk_incidents": 1835,
+      "delayed_high_risk_incidents": 614,
+      "delayed_pct": 33.46,
+      "avg_response": 7.99
+    },
+    {
+      "hour": "00:00",
+      "high_risk_incidents": 1927,
+      "delayed_high_risk_incidents": 609,
+      "delayed_pct": 31.6,
+      "avg_response": 7.75
+    },
+    {
+      "hour": "03:00",
+      "high_risk_incidents": 1546,
+      "delayed_high_risk_incidents": 565,
+      "delayed_pct": 36.55,
+      "avg_response": 8.12
+    },
+    {
+      "hour": "02:00",
+      "high_risk_incidents": 1654,
+      "delayed_high_risk_incidents": 553,
+      "delayed_pct": 33.43,
+      "avg_response": 8.05
+    },
+    {
+      "hour": "04:00",
+      "high_risk_incidents": 1497,
+      "delayed_high_risk_incidents": 516,
+      "delayed_pct": 34.47,
+      "avg_response": 7.97
+    }
+  ],
+  "worst_hour_for_high_risk": "14:00",
+  "total_high_risk_incidents": 81972,
+  "total_delayed_high_risk": 22970,
+  "delayed_high_risk_pct": 28.02
+}

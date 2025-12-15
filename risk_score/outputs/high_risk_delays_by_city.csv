@@ -1,0 +1,11 @@
+City,High_Risk_Count,Avg_Response_Time_min,Avg_Turnout_Time_min,Avg_On_Scene_Time_min,Avg_Call_Cycle_Time_min
+San Rafael,6694,6.8,0.8,1.7,7.7
+Novato,4763,6.7,0.8,1.6,7.5
+Mill Valley,2083,6.7,1.0,2.1,7.7
+Larkspur,1135,7.2,0.8,2.0,7.9
+Sausalito,963,6.7,0.9,1.9,7.5
+San Anselmo,852,8.1,0.8,1.8,8.9
+Corte Madera,770,5.8,0.8,1.7,6.7
+Tiburon,678,7.1,1.0,1.7,8.1
+Fairfax,674,10.5,0.9,2.1,11.5
+Kentfield,576,6.4,0.7,2.5,7.1

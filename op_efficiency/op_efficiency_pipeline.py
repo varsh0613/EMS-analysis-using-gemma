@@ -268,6 +268,7 @@ def compute_hourly_response(df: pd.DataFrame) -> list[dict]:
       - hour: "00:00", "01:00", ...
       - avg_response: float (average response time)
       - count: int (number of calls)
+      - is_peak_delay: bool (True if this hour has above-average delays)
     """
     if df.empty or "Time_Call_Was_Received" not in df.columns:
         return []
@@ -280,11 +281,68 @@ def compute_hourly_response(df: pd.DataFrame) -> list[dict]:
         count=("Incident_Number", "count")
     ).reset_index()
 
+    # Identify peak delay hours (above overall mean)
+    overall_mean_response = grouped["avg_response"].mean()
+    grouped["is_peak_delay"] = grouped["avg_response"] > overall_mean_response
+
     # format hour as string "HH:00"
     grouped["hour"] = grouped["hour"].apply(lambda h: f"{h:02d}:00")
     grouped["avg_response"] = grouped["avg_response"].round(2)
 
     return grouped.to_dict(orient="records")
+
+# ---------------- PEAK DELAY HOURS SUMMARY ----------------
+def compute_peak_delay_hours(df: pd.DataFrame, sla: float = 8) -> Dict[str, Any]:
+    """
+    Identifies which HOURS had the most DELAYED incidents (response_time > SLA).
+    Returns hours ranked by count of delayed incidents.
+    """
+    if df.empty or "Time_Call_Was_Received" not in df.columns or "response_time_min" not in df.columns:
+        return {
+            "peak_hours": [],
+            "worst_hour": None,
+            "best_hour": None,
+            "total_delayed_incidents": 0
+        }
+
+    df = df.copy()
+    
+    # Filter to only delayed incidents (response time > SLA)
+    df_delayed = df[df["response_time_min"] > sla].copy()
+    
+    if df_delayed.empty:
+        return {
+            "peak_hours": [],
+            "worst_hour": None,
+            "best_hour": None,
+            "total_delayed_incidents": 0
+        }
+    
+    # Extract hour from Time_Call_Was_Received
+    df_delayed["hour"] = df_delayed["Time_Call_Was_Received"].dt.hour
+    
+    # Count delayed incidents per hour
+    hour_counts = df_delayed["hour"].value_counts().sort_values(ascending=False)
+    
+    # Get worst and best hours by count of delayed incidents
+    worst_hour = f"{int(hour_counts.index[0]):02d}:00" if len(hour_counts) > 0 else None
+    best_hour = f"{int(hour_counts.index[-1]):02d}:00" if len(hour_counts) > 0 else None
+    
+    # Build list of peak hours (all hours with delayed incidents, sorted by count)
+    peak_hours_list = []
+    for hour, count in hour_counts.items():
+        peak_hours_list.append({
+            "hour": f"{int(hour):02d}:00",
+            "delayed_incident_count": int(count),
+            "pct_of_total_delays": safe_round((count / len(df_delayed)) * 100)
+        })
+
+    return {
+        "peak_hours": peak_hours_list,
+        "worst_hour": worst_hour,
+        "best_hour": best_hour,
+        "total_delayed_incidents": int(len(df_delayed))
+    }
 
 
 # ---------------- MAIN ----------------
@@ -297,6 +355,7 @@ def main():
     write_json(compute_delay_buckets(df), OUTPUT_DIR / "delay_buckets.json")
     write_json(compute_city_agg(df), OUTPUT_DIR / "city_summary.json")
     write_json(compute_hourly_response(df), OUTPUT_DIR / "hourly_response.json")
+    write_json(compute_peak_delay_hours(df), OUTPUT_DIR / "peak_delay_hours.json")
     print("[DONE] Wrote JSON outputs to:", OUTPUT_DIR)
 
 if __name__ == "__main__":

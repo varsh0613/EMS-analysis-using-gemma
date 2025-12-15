@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from "react";
 import Plot from "react-plotly.js";
 import {
-    BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContainer,
-    PieChart, Pie, Cell, Legend, Label, LabelList
+    BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContainer, LineChart, Line,
+    PieChart, Pie, Cell, Legend, Label, LabelList, ComposedChart
 } from "recharts";
 import {
     fetchRiskTopProtocols,
     fetchRiskTopPrimaryImpressions,
     fetchConfusionMatrixCSV,
     fetchClassifierReportText,
-    fetchRiskLabelDistribution
+    fetchRiskLabelDistribution,
+    fetchOpPeakRiskHours,
+    fetchOpRiskByHour,
+    fetchRiskHighRiskByCity,
+    fetchRiskHighRiskDelaysByCity
 } from "../api/gemmaApi";
 
 const COLORS = {
@@ -104,6 +108,10 @@ export default function RiskDashboard() {
     const [riskFilter, setRiskFilter] = useState("ALL");
     const [labelDist, setLabelDist] = useState({ HIGH: 0, MEDIUM: 0, LOW: 0 });
     const [hoveredCard, setHoveredCard] = useState(null);
+    const [peakRiskHours, setPeakRiskHours] = useState({});
+    const [riskByHour, setRiskByHour] = useState([]);
+    const [highRiskByCity, setHighRiskByCity] = useState([]);
+    const [highRiskDelaysByCity, setHighRiskDelaysByCity] = useState([]);
 
     useEffect(() => {
         fetchRiskTopProtocols().then(data => setTopProtocols(typeof data === 'object' ? data : {}));
@@ -117,6 +125,20 @@ export default function RiskDashboard() {
         });
 
         fetchClassifierReportText().then(setClassReport);
+        fetchOpPeakRiskHours().then(setPeakRiskHours);
+        fetchOpRiskByHour().then(data => {
+            // Sort by hour chronologically (0-23)
+            if (Array.isArray(data)) {
+                data.sort((a, b) => {
+                    const hourA = parseInt(a.hour.split(":")[0]);
+                    const hourB = parseInt(b.hour.split(":")[0]);
+                    return hourA - hourB;
+                });
+            }
+            setRiskByHour(data);
+        });
+        fetchRiskHighRiskByCity().then(data => setHighRiskByCity(Array.isArray(data) ? data : []));
+        fetchRiskHighRiskDelaysByCity().then(data => setHighRiskDelaysByCity(Array.isArray(data) ? data : []));
     }, []);
 
     // ===== KPI COUNTS - Use actual label distribution =====
@@ -269,9 +291,7 @@ export default function RiskDashboard() {
                 <InteractivePieChart data={riskDistData} colors={COLORS} />
             </div>
 
-
-
-            {/* ===== 4. RISK FILTER + TOP PROTOCOLS & IMPRESSIONS ===== */}
+            {/* ===== 3. RISK FILTER + TOP PROTOCOLS & IMPRESSIONS ===== */}
             <div style={{ marginBottom: 30 }}>
                 <div style={{ marginBottom: 20 }}>
                     <label style={{ marginRight: 10, fontWeight: "bold", color: "#333" }}>Filter by Risk:</label>
@@ -361,6 +381,166 @@ export default function RiskDashboard() {
                             <p style={{ color: "#999" }}>No data for selected risk</p>
                         )}
                     </div>
+                </div>
+            </div>
+
+            {/* ===== 4. CRITICAL WINDOWS: HIGH-RISK + DELAYS ===== */}
+            <div
+                style={{ ...cardStyle, marginBottom: 30, borderLeft: "5px solid #C64545" }}
+                onMouseEnter={() => setHoveredCard("criticalWindows")}
+                onMouseLeave={() => setHoveredCard(null)}
+            >
+                <h2 style={{ marginTop: 0, color: "#C64545" }}>Critical Windows: High-Risk Cases with Delays</h2>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px', marginBottom: '20px' }}>
+                    <div style={{ padding: '12px', backgroundColor: '#f5f5f5', borderRadius: '8px', border: '1px solid #ddd' }}>
+                        <div style={{ fontSize: '12px', color: '#666', marginBottom: '4px' }}>Worst Hour (High-Risk + Delays)</div>
+                        <div style={{ fontSize: '20px', fontWeight: 'bold', color: '#C64545' }}>
+                            {peakRiskHours.worst_hour_for_high_risk || '--'}
+                        </div>
+                    </div>
+                    <div style={{ padding: '12px', backgroundColor: '#f5f5f5', borderRadius: '8px', border: '1px solid #ddd' }}>
+                        <div style={{ fontSize: '12px', color: '#666', marginBottom: '4px' }}>Total High-Risk Cases</div>
+                        <div style={{ fontSize: '20px', fontWeight: 'bold', color: '#666' }}>
+                            {peakRiskHours.total_high_risk_incidents?.toLocaleString() || '--'}
+                        </div>
+                    </div>
+                    <div style={{ padding: '12px', backgroundColor: '#f5f5f5', borderRadius: '8px', border: '1px solid #ddd' }}>
+                        <div style={{ fontSize: '12px', color: '#666', marginBottom: '4px' }}>Delayed High-Risk Cases</div>
+                        <div style={{ fontSize: '20px', fontWeight: 'bold', color: '#C64545' }}>
+                            {peakRiskHours.total_delayed_high_risk?.toLocaleString() || '--'} ({peakRiskHours.delayed_high_risk_pct}%)
+                        </div>
+                    </div>
+                </div>
+
+                {peakRiskHours.critical_windows && peakRiskHours.critical_windows.length > 0 && (
+                    <div>
+                        <h3 style={{ margin: '12px 0 12px 0', fontSize: '14px', color: '#333' }}>High-Risk + Delayed by Hour (Top Risk Windows)</h3>
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))', gap: '8px' }}>
+                            {peakRiskHours.critical_windows.slice(0, 12).map((window, idx) => (
+                                <div key={idx} style={{ padding: '10px', backgroundColor: '#FBE9E7', borderRadius: '6px', border: '1px solid #C64545' }}>
+                                    <div style={{ fontSize: '13px', fontWeight: 'bold', color: '#C64545' }}>{window.hour}</div>
+                                    <div style={{ fontSize: '11px', color: '#333', marginTop: '4px' }}>
+                                        High: {window.high_risk_incidents}
+                                    </div>
+                                    <div style={{ fontSize: '11px', color: '#C64545', fontWeight: '600' }}>
+                                        Delayed: {window.delayed_high_risk_incidents} ({window.delayed_pct}%)
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                )}
+            </div>
+
+            {/* ===== RISK DISTRIBUTION BY HOUR ===== */}
+            <div
+                style={{ ...cardStyle, marginBottom: 30 }}
+                onMouseEnter={() => setHoveredCard("riskByHour")}
+                onMouseLeave={() => setHoveredCard(null)}
+            >
+                <h2 style={{ marginTop: 0, color: "#333" }}>High-Risk Cases by Hour with Delay %</h2>
+                <ResponsiveContainer width="100%" height={300}>
+                    <ComposedChart data={riskByHour}>
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="hour" tick={{ fontSize: 12 }} />
+                        <YAxis yAxisId="left" label={{ value: 'High-Risk Count', angle: -90, position: 'insideLeft' }} />
+                        <YAxis yAxisId="right" orientation="right" label={{ value: 'Delayed %', angle: -90, position: 'insideRight' }} />
+                        <Tooltip />
+                        <Legend />
+                        <Bar yAxisId="left" dataKey="high_risk_count" fill="#8B7FD8" name="High-Risk Cases" />
+                        <Line yAxisId="right" type="monotone" dataKey="delayed_pct" stroke="#BA68C8" strokeWidth={2} name="Delayed %" />
+                    </ComposedChart>
+                </ResponsiveContainer>
+            </div>
+
+            {/* ===== 6. HIGH-RISK BY LOCATION ===== */}
+            <div style={{ marginBottom: 30 }}>
+                <h2 style={{ color: "#333", marginBottom: 20 }}>High-Risk Cases by City</h2>
+                
+                <div
+                    style={{ ...cardStyle, marginBottom: 20 }}
+                    onMouseEnter={() => setHoveredCard("riskByCity")}
+                    onMouseLeave={() => setHoveredCard(null)}
+                >
+                    <h3 style={{ marginTop: 0, color: "#333" }}>Top 15 Cities by High-Risk Cases</h3>
+                    {highRiskByCity.length > 0 ? (
+                        <ResponsiveContainer width="100%" height={400}>
+                            <BarChart
+                                layout="vertical"
+                                data={highRiskByCity.slice(0, 15)}
+                                margin={{ left: 0, right: 50, top: 5, bottom: 5 }}
+                            >
+                                <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+                                <XAxis type="number" />
+                                <YAxis dataKey="City" type="category" width={120} tick={{ fontSize: 12 }} />
+                                <Tooltip 
+                                    formatter={(value) => value.toLocaleString()}
+                                    content={({ active, payload }) => {
+                                        if (active && payload && payload.length) {
+                                            const data = payload[0].payload;
+                                            return (
+                                                <div style={{ background: "#fff", padding: "8px", borderRadius: "4px", border: "1px solid #ddd" }}>
+                                                    <p style={{ margin: "0 0 4px 0", fontSize: "12px" }}><strong>{data.City}</strong></p>
+                                                    <p style={{ margin: "0 0 4px 0", fontSize: "12px" }}>High-Risk: {data.High_Risk_Count}</p>
+                                                    <p style={{ margin: "0 0 4px 0", fontSize: "12px" }}>Total: {data.Total_Cases_in_City}</p>
+                                                    <p style={{ margin: "0", fontSize: "12px", color: "#C64545", fontWeight: "bold" }}>{data.High_Risk_Percentage}% high-risk</p>
+                                                </div>
+                                            );
+                                        }
+                                        return null;
+                                    }}
+                                />
+                                <Bar dataKey="High_Risk_Count" fill="#8B7FD8" radius={[0, 8, 8, 0]} isAnimationActive={false} maxBarSize={50}>
+                                    <LabelList dataKey="High_Risk_Count" position="right" fill="#333" fontSize={11} fontWeight={600} offset={5} />
+                                </Bar>
+                            </BarChart>
+                        </ResponsiveContainer>
+                    ) : (
+                        <p style={{ color: "#999" }}>No data available</p>
+                    )}
+                </div>
+
+                {/* Response Delays by City */}
+                <div
+                    style={{ ...cardStyle }}
+                    onMouseEnter={() => setHoveredCard("riskDelays")}
+                    onMouseLeave={() => setHoveredCard(null)}
+                >
+                    <h3 style={{ marginTop: 0, color: "#333" }}>Response Delays in High-Risk Cases by City (Top 10)</h3>
+                    {highRiskDelaysByCity.length > 0 ? (
+                        <div style={{ overflowX: "auto" }}>
+                            <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "13px" }}>
+                                <thead>
+                                    <tr style={{ background: "#f0f0f0" }}>
+                                        <th style={{ padding: "10px", textAlign: "left", borderBottom: "2px solid #ddd", fontWeight: "bold" }}>City</th>
+                                        <th style={{ padding: "10px", textAlign: "center", borderBottom: "2px solid #ddd", fontWeight: "bold" }}>High-Risk Count</th>
+                                        <th style={{ padding: "10px", textAlign: "center", borderBottom: "2px solid #ddd", fontWeight: "bold" }}>Avg Response (min)</th>
+                                        <th style={{ padding: "10px", textAlign: "center", borderBottom: "2px solid #ddd", fontWeight: "bold" }}>Avg Turnout (min)</th>
+                                        <th style={{ padding: "10px", textAlign: "center", borderBottom: "2px solid #ddd", fontWeight: "bold" }}>Avg On-Scene (min)</th>
+                                        <th style={{ padding: "10px", textAlign: "center", borderBottom: "2px solid #ddd", fontWeight: "bold" }}>Avg Call Cycle (min)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {highRiskDelaysByCity.map((row, i) => (
+                                        <tr key={i} style={{ background: i % 2 === 0 ? "#f9f9f9" : "#fff" }}>
+                                            <td style={{ padding: "10px", borderBottom: "1px solid #ddd", fontWeight: "bold", color: "#C64545" }}>{row.City}</td>
+                                            <td style={{ padding: "10px", textAlign: "center", borderBottom: "1px solid #ddd" }}>{row.High_Risk_Count}</td>
+                                            <td style={{ padding: "10px", textAlign: "center", borderBottom: "1px solid #ddd", color: row.Avg_Response_Time_min > 10 ? "#C64545" : "#333" }}>
+                                                {row.Avg_Response_Time_min}
+                                            </td>
+                                            <td style={{ padding: "10px", textAlign: "center", borderBottom: "1px solid #ddd", color: row.Avg_Turnout_Time_min > 2 ? "#C64545" : "#333" }}>
+                                                {row.Avg_Turnout_Time_min}
+                                            </td>
+                                            <td style={{ padding: "10px", textAlign: "center", borderBottom: "1px solid #ddd" }}>{row.Avg_On_Scene_Time_min}</td>
+                                            <td style={{ padding: "10px", textAlign: "center", borderBottom: "1px solid #ddd" }}>{row.Avg_Call_Cycle_Time_min}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    ) : (
+                        <p style={{ color: "#999" }}>No data available</p>
+                    )}
                 </div>
             </div>
 

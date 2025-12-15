@@ -1,0 +1,461 @@
+[
+  {
+    "city": "San Rafael",
+    "total_incidents": 34254,
+    "high_risk_count": 25575,
+    "high_risk_pct": 74.66,
+    "medium_risk_count": 7112,
+    "low_risk_count": 1567,
+    "avg_response_time": 6.85
+  },
+  {
+    "city": "Novato",
+    "total_incidents": 24968,
+    "high_risk_count": 18927,
+    "high_risk_pct": 75.81,
+    "medium_risk_count": 5251,
+    "low_risk_count": 790,
+    "avg_response_time": 6.8
+  },
+  {
+    "city": "Mill Valley",
+    "total_incidents": 10581,
+    "high_risk_count": 8139,
+    "high_risk_pct": 76.92,
+    "medium_risk_count": 2103,
+    "low_risk_count": 339,
+    "avg_response_time": 6.8
+  },
+  {
+    "city": "Larkspur",
+    "total_incidents": 5547,
+    "high_risk_count": 4216,
+    "high_risk_pct": 76.01,
+    "medium_risk_count": 1126,
+    "low_risk_count": 205,
+    "avg_response_time": 7.26
+  },
+  {
+    "city": "Sausalito",
+    "total_incidents": 4864,
+    "high_risk_count": 3570,
+    "high_risk_pct": 73.4,
+    "medium_risk_count": 1183,
+    "low_risk_count": 111,
+    "avg_response_time": 6.62
+  },
+  {
+    "city": "San Anselmo",
+    "total_incidents": 4074,
+    "high_risk_count": 3112,
+    "high_risk_pct": 76.39,
+    "medium_risk_count": 794,
+    "low_risk_count": 168,
+    "avg_response_time": 8.47
+  },
+  {
+    "city": "Corte Madera",
+    "total_incidents": 3913,
+    "high_risk_count": 2885,
+    "high_risk_pct": 73.73,
+    "medium_risk_count": 863,
+    "low_risk_count": 165,
+    "avg_response_time": 5.81
+  },
+  {
+    "city": "Fairfax",
+    "total_incidents": 3382,
+    "high_risk_count": 2645,
+    "high_risk_pct": 78.21,
+    "medium_risk_count": 598,
+    "low_risk_count": 139,
+    "avg_response_time": 10.65
+  },
+  {
+    "city": "Tiburon",
+    "total_incidents": 3212,
+    "high_risk_count": 2508,
+    "high_risk_pct": 78.08,
+    "medium_risk_count": 619,
+    "low_risk_count": 85,
+    "avg_response_time": 7.42
+  },
+  {
+    "city": "Kentfield",
+    "total_incidents": 2801,
+    "high_risk_count": 2096,
+    "high_risk_pct": 74.83,
+    "medium_risk_count": 613,
+    "low_risk_count": 92,
+    "avg_response_time": 6.46
+  },
+  {
+    "city": "Marin",
+    "total_incidents": 1555,
+    "high_risk_count": 1243,
+    "high_risk_pct": 79.94,
+    "medium_risk_count": 271,
+    "low_risk_count": 41,
+    "avg_response_time": 6.88
+  },
+  {
+    "city": "Point Reyes",
+    "total_incidents": 1045,
+    "high_risk_count": 777,
+    "high_risk_pct": 74.35,
+    "medium_risk_count": 209,
+    "low_risk_count": 59,
+    "avg_response_time": 7.27
+  },
+  {
+    "city": "San Quentin",
+    "total_incidents": 821,
+    "high_risk_count": 650,
+    "high_risk_pct": 79.17,
+    "medium_risk_count": 163,
+    "low_risk_count": 8,
+    "avg_response_time": 10.15
+  },
+  {
+    "city": "Belvedere",
+    "total_incidents": 769,
+    "high_risk_count": 598,
+    "high_risk_pct": 77.76,
+    "medium_risk_count": 154,
+    "low_risk_count": 17,
+    "avg_response_time": 8.78
+  },
+  {
+    "city": "Stinson Beach",
+    "total_incidents": 725,
+    "high_risk_count": 572,
+    "high_risk_pct": 78.9,
+    "medium_risk_count": 138,
+    "low_risk_count": 15,
+    "avg_response_time": 12.57
+  },
+  {
+    "city": "Marinwood",
+    "total_incidents": 728,
+    "high_risk_count": 510,
+    "high_risk_pct": 70.05,
+    "medium_risk_count": 186,
+    "low_risk_count": 32,
+    "avg_response_time": 7.98
+  },
+  {
+    "city": "Ross",
+    "total_incidents": 641,
+    "high_risk_count": 492,
+    "high_risk_pct": 76.76,
+    "medium_risk_count": 133,
+    "low_risk_count": 16,
+    "avg_response_time": 6.71
+  },
+  {
+    "city": "Greenbrae",
+    "total_incidents": 637,
+    "high_risk_count": 491,
+    "high_risk_pct": 77.08,
+    "medium_risk_count": 108,
+    "low_risk_count": 38,
+    "avg_response_time": 7.7
+  },
+  {
+    "city": "Woodacre",
+    "total_incidents": 573,
+    "high_risk_count": 431,
+    "high_risk_pct": 75.22,
+    "medium_risk_count": 119,
+    "low_risk_count": 23,
+    "avg_response_time": 5.32
+  },
+  {
+    "city": "Bolinas",
+    "total_incidents": 540,
+    "high_risk_count": 422,
+    "high_risk_pct": 78.15,
+    "medium_risk_count": 91,
+    "low_risk_count": 27,
+    "avg_response_time": 21.18
+  },
+  {
+    "city": "Inverness",
+    "total_incidents": 486,
+    "high_risk_count": 375,
+    "high_risk_pct": 77.16,
+    "medium_risk_count": 97,
+    "low_risk_count": 14,
+    "avg_response_time": 13.17
+  },
+  {
+    "city": "Forest Knolls",
+    "total_incidents": 368,
+    "high_risk_count": 286,
+    "high_risk_pct": 77.72,
+    "medium_risk_count": 74,
+    "low_risk_count": 8,
+    "avg_response_time": 9.56
+  },
+  {
+    "city": "San Geronimo",
+    "total_incidents": 279,
+    "high_risk_count": 210,
+    "high_risk_pct": 75.27,
+    "medium_risk_count": 59,
+    "low_risk_count": 10,
+    "avg_response_time": 7.84
+  },
+  {
+    "city": "Lagunitas",
+    "total_incidents": 268,
+    "high_risk_count": 208,
+    "high_risk_pct": 77.61,
+    "medium_risk_count": 51,
+    "low_risk_count": 9,
+    "avg_response_time": 10.9
+  },
+  {
+    "city": "Olema",
+    "total_incidents": 207,
+    "high_risk_count": 155,
+    "high_risk_pct": 74.88,
+    "medium_risk_count": 36,
+    "low_risk_count": 16,
+    "avg_response_time": 11.35
+  },
+  {
+    "city": "Nicasio",
+    "total_incidents": 186,
+    "high_risk_count": 133,
+    "high_risk_pct": 71.51,
+    "medium_risk_count": 50,
+    "low_risk_count": 3,
+    "avg_response_time": 15.11
+  },
+  {
+    "city": "Alto",
+    "total_incidents": 206,
+    "high_risk_count": 129,
+    "high_risk_pct": 62.62,
+    "medium_risk_count": 77,
+    "low_risk_count": 0,
+    "avg_response_time": 6.39
+  },
+  {
+    "city": "Tomales",
+    "total_incidents": 164,
+    "high_risk_count": 116,
+    "high_risk_pct": 70.73,
+    "medium_risk_count": 38,
+    "low_risk_count": 10,
+    "avg_response_time": 7.71
+  },
+  {
+    "city": "Muir Beach",
+    "total_incidents": 152,
+    "high_risk_count": 102,
+    "high_risk_pct": 67.11,
+    "medium_risk_count": 47,
+    "low_risk_count": 3,
+    "avg_response_time": 17.64
+  },
+  {
+    "city": "Dillon Beach",
+    "total_incidents": 114,
+    "high_risk_count": 91,
+    "high_risk_pct": 79.82,
+    "medium_risk_count": 17,
+    "low_risk_count": 6,
+    "avg_response_time": 12.36
+  },
+  {
+    "city": "Marshall",
+    "total_incidents": 130,
+    "high_risk_count": 79,
+    "high_risk_pct": 60.77,
+    "medium_risk_count": 40,
+    "low_risk_count": 11,
+    "avg_response_time": 22.4
+  },
+  {
+    "city": "Golden Gate National Recreation Area",
+    "total_incidents": 132,
+    "high_risk_count": 70,
+    "high_risk_pct": 53.03,
+    "medium_risk_count": 59,
+    "low_risk_count": 3,
+    "avg_response_time": 11.24
+  },
+  {
+    "city": "Petaluma",
+    "total_incidents": 87,
+    "high_risk_count": 68,
+    "high_risk_pct": 78.16,
+    "medium_risk_count": 16,
+    "low_risk_count": 3,
+    "avg_response_time": 12.57
+  },
+  {
+    "city": "Mount Tamalpais",
+    "total_incidents": 66,
+    "high_risk_count": 41,
+    "high_risk_pct": 62.12,
+    "medium_risk_count": 25,
+    "low_risk_count": 0,
+    "avg_response_time": 21.5
+  },
+  {
+    "city": "Stinson Beach/Ocean/Lake/River",
+    "total_incidents": 17,
+    "high_risk_count": 13,
+    "high_risk_pct": 76.47,
+    "medium_risk_count": 4,
+    "low_risk_count": 0,
+    "avg_response_time": 8.94
+  },
+  {
+    "city": "San Francisco",
+    "total_incidents": 13,
+    "high_risk_count": 10,
+    "high_risk_pct": 76.92,
+    "medium_risk_count": 3,
+    "low_risk_count": 0,
+    "avg_response_time": 10.08
+  },
+  {
+    "city": "Unknown",
+    "total_incidents": 6,
+    "high_risk_count": 5,
+    "high_risk_pct": 83.33,
+    "medium_risk_count": 1,
+    "low_risk_count": 0,
+    "avg_response_time": 5.5
+  },
+  {
+    "city": "Muir Beach/Ocean/Lake/River",
+    "total_incidents": 4,
+    "high_risk_count": 4,
+    "high_risk_pct": 100.0,
+    "medium_risk_count": 0,
+    "low_risk_count": 0,
+    "avg_response_time": 17.75
+  },
+  {
+    "city": "Dogtown",
+    "total_incidents": 6,
+    "high_risk_count": 3,
+    "high_risk_pct": 50.0,
+    "medium_risk_count": 2,
+    "low_risk_count": 1,
+    "avg_response_time": 15.0
+  },
+  {
+    "city": "Sleepy Hollow",
+    "total_incidents": 3,
+    "high_risk_count": 3,
+    "high_risk_pct": 100.0,
+    "medium_risk_count": 0,
+    "low_risk_count": 0,
+    "avg_response_time": 12.0
+  },
+  {
+    "city": "Santa Rosa",
+    "total_incidents": 3,
+    "high_risk_count": 2,
+    "high_risk_pct": 66.67,
+    "medium_risk_count": 0,
+    "low_risk_count": 1,
+    "avg_response_time": 29.0
+  },
+  {
+    "city": "Valley Ford",
+    "total_incidents": 2,
+    "high_risk_count": 2,
+    "high_risk_pct": 100.0,
+    "medium_risk_count": 0,
+    "low_risk_count": 0,
+    "avg_response_time": 14.5
+  },
+  {
+    "city": "Bodega Bay",
+    "total_incidents": 2,
+    "high_risk_count": 1,
+    "high_risk_pct": 50.0,
+    "medium_risk_count": 1,
+    "low_risk_count": 0,
+    "avg_response_time": 7.0
+  },
+  {
+    "city": "Carmel",
+    "total_incidents": 1,
+    "high_risk_count": 1,
+    "high_risk_pct": 100.0,
+    "medium_risk_count": 0,
+    "low_risk_count": 0,
+    "avg_response_time": 0.0
+  },
+  {
+    "city": "Los Gatos",
+    "total_incidents": 1,
+    "high_risk_count": 1,
+    "high_risk_pct": 100.0,
+    "medium_risk_count": 0,
+    "low_risk_count": 0,
+    "avg_response_time": 14.0
+  },
+  {
+    "city": "Pinole",
+    "total_incidents": 1,
+    "high_risk_count": 1,
+    "high_risk_pct": 100.0,
+    "medium_risk_count": 0,
+    "low_risk_count": 0,
+    "avg_response_time": 14.0
+  },
+  {
+    "city": "Salinas",
+    "total_incidents": 1,
+    "high_risk_count": 1,
+    "high_risk_pct": 100.0,
+    "medium_risk_count": 0,
+    "low_risk_count": 0,
+    "avg_response_time": 4.0
+  },
+  {
+    "city": "San Pablo",
+    "total_incidents": 1,
+    "high_risk_count": 1,
+    "high_risk_pct": 100.0,
+    "medium_risk_count": 0,
+    "low_risk_count": 0,
+    "avg_response_time": 10.0
+  },
+  {
+    "city": "Tam Valley",
+    "total_incidents": 1,
+    "high_risk_count": 1,
+    "high_risk_pct": 100.0,
+    "medium_risk_count": 0,
+    "low_risk_count": 0,
+    "avg_response_time": 6.0
+  },
+  {
+    "city": "York",
+    "total_incidents": 1,
+    "high_risk_count": 1,
+    "high_risk_pct": 100.0,
+    "medium_risk_count": 0,
+    "low_risk_count": 0,
+    "avg_response_time": 9.0
+  },
+  {
+    "city": "Paso Robles",
+    "total_incidents": 1,
+    "high_risk_count": 0,
+    "high_risk_pct": 0.0,
+    "medium_risk_count": 1,
+    "low_risk_count": 0,
+    "avg_response_time": 5.0
+  }
+]

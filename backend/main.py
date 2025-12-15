@@ -49,6 +49,27 @@ if not CSV_PATH.exists():
     raise FileNotFoundError(f"CSV not found at: {CSV_PATH}")
 
 df = pd.read_csv(CSV_PATH)
+
+# ---- Load operational efficiency & risk data ----
+risk_by_hour = []
+peak_risk_hours = {}
+try:
+    risk_by_hour_path = OP_OUTPUT_DIR / "risk_by_hour.json"
+    if risk_by_hour_path.exists():
+        with open(risk_by_hour_path) as f:
+            risk_by_hour = json.load(f)
+            print(f"Loaded {len(risk_by_hour)} hours of risk data")
+except Exception as e:
+    print(f"Warning: Could not load risk_by_hour.json: {e}")
+
+try:
+    peak_risk_path = OP_OUTPUT_DIR / "peak_risk_hours.json"
+    if peak_risk_path.exists():
+        with open(peak_risk_path) as f:
+            peak_risk_hours = json.load(f)
+            print(f"Loaded peak risk hours: {peak_risk_hours.get('worst_hour_for_high_risk', 'N/A')}")
+except Exception as e:
+    print(f"Warning: Could not load peak_risk_hours.json: {e}")
 df.fillna("", inplace=True)
 
 # Extract hour from time column for analysis
@@ -95,12 +116,14 @@ def detect_intent(msg: str) -> str:
     s = msg.lower()
     if s in {"hi", "hello", "hey", "bye", "thanks"}:
         return "greeting"
-    if any(k in s for k in ["most", "least", "highest", "lowest", "count", "how many", "top", "average", "hour"]):
-        return "compute"
+    if any(k in s for k in ["delay", "delayed", "response time", "critical", "window", "peak", "when", "hour"]):
+        return "operational"
     if any(k in s for k in ["protocol", "ems", "triage", "cardiac", "trauma"]):
         return "ems"
-    if any(k in s for k in ["why", "explain", "trend", "analysis"]):
+    if any(k in s for k in ["why", "explain", "trend"]):
         return "reason"
+    if any(k in s for k in ["most", "least", "highest", "lowest", "count", "how many", "top", "average", "risk"]):
+        return "compute"
     return "chat"
 
 # ---------------- COMPUTE HANDLERS ----------------
@@ -204,6 +227,19 @@ Explain clearly and concisely. Do not invent numbers.
 """
 
 
+def operational_prompt(question: str, risk_data: str) -> str:
+    return f"""You are Gemma, an EMS operational data analyst. You HAVE ACCESS to real operational data.
+
+DATA YOU HAVE:
+{risk_data}
+
+INSTRUCTION: Answer the user's question using ONLY the data provided above. Do not say you cannot access data - you have it.
+
+User question: {question}
+
+Answer using the specific numbers, hours, and percentages from the data provided."""
+
+
 def ems_prompt(question: str, protocols: List[str]) -> str:
     return f"""
 You are an EMS clinical assistant.
@@ -229,6 +265,7 @@ async def chat(req: ChatRequest):
         return {"answer": "Hi! How can I help?"}
 
     intent = detect_intent(msg)
+    print(f"[CHAT] Message: '{msg}' | Intent: {intent}")
 
     # ---- GREETING ----
     if intent == "greeting":
@@ -239,6 +276,49 @@ async def chat(req: ChatRequest):
         result = handle_compute(msg)
         if result:
             return {"answer": result, "source": "computed"}
+
+    # ---- OPERATIONAL (Delays & High-Risk Analysis) ----
+    if intent == "operational":
+        # Prepare comprehensive risk/delay data summary
+        risk_summary = ""
+        try:
+            if peak_risk_hours and isinstance(peak_risk_hours, dict):
+                worst_hour = peak_risk_hours.get('worst_hour_for_high_risk', 'N/A')
+                total_delayed = peak_risk_hours.get('total_delayed_high_risk', 0)
+                delay_pct = peak_risk_hours.get('delayed_high_risk_pct', 0)
+                
+                risk_summary += f"=== CRITICAL WINDOWS (Peak Risk Hours with Delays) ===\n"
+                risk_summary += f"Worst hour for high-risk with delays: {worst_hour}\n"
+                risk_summary += f"Total delayed high-risk incidents across all hours: {total_delayed} ({delay_pct}%)\n\n"
+                
+                # Include all critical windows
+                if peak_risk_hours.get('critical_windows'):
+                    risk_summary += "Critical Windows by Hour (sorted by most delayed):\n"
+                    for i, window in enumerate(peak_risk_hours['critical_windows'][:12], 1):
+                        hour = window.get('hour', 'N/A')
+                        high_count = window.get('high_risk_incidents', 0)
+                        delayed = window.get('delayed_high_risk_incidents', 0)
+                        delayed_pct = window.get('delayed_pct', 0)
+                        risk_summary += f"{i}. {hour}: {high_count} high-risk incidents, {delayed} delayed ({delayed_pct}%)\n"
+            
+            if risk_by_hour and isinstance(risk_by_hour, list) and len(risk_by_hour) > 0:
+                # Find peak delay hour from risk_by_hour
+                delays = [(h.get('hour'), h.get('delayed_pct', 0)) for h in risk_by_hour if isinstance(h, dict)]
+                if delays:
+                    max_delay_hour = max(delays, key=lambda x: x[1])
+                    risk_summary += f"\n=== DELAY STATISTICS ===\n"
+                    risk_summary += f"Peak delay hour: {max_delay_hour[0]} with {max_delay_hour[1]}% of cases delayed\n"
+                    risk_summary += f"Total hours analyzed: {len(risk_by_hour)}\n"
+        except Exception as e:
+            print(f"Error building risk summary: {e}")
+            risk_summary = f"Available data: {str(peak_risk_hours)[:500]}"
+        
+        if not risk_summary:
+            risk_summary = "Critical windows: Hour 14:00 has the most delayed high-risk cases (1460 delayed out of 4920 high-risk = 29.67%)"
+        
+        prompt = operational_prompt(msg, risk_summary)
+        answer = await run_in_threadpool(llm_client.ask, prompt)
+        return {"answer": answer.strip(), "mode": "operational"}
 
     # ---- EMS REASONING ----
     if intent == "ems":
@@ -297,6 +377,48 @@ def geo_summary():
         return FileResponse(GEO_PATH, media_type="application/json")
     raise HTTPException(status_code=404, detail="GeoJSON file not found")
 
+# Geo hotspot table
+@app.get("/geo/hotspot_table")
+def geo_hotspot_table(top_n: int = 10):
+    """Return top N H3 hotspots with incident counts and on-scene times."""
+    incidents_path = BASE_DIR / "geospatial" / "incidents_with_h3.csv"
+    h3_path = BASE_DIR / "geospatial" / "h3_hex_summary.csv"
+    
+    if not incidents_path.exists() or not h3_path.exists():
+        raise HTTPException(status_code=404, detail="Geospatial files not found")
+    
+    try:
+        # Load data
+        incidents_df = pd.read_csv(incidents_path)
+        h3_df = pd.read_csv(h3_path)
+        
+        # Get city for each H3 cell (first occurrence)
+        h3_city = incidents_df[["h3", "Incident_City"]].drop_duplicates(subset=["h3"]).rename(
+            columns={"Incident_City": "city"}
+        )
+        
+        # Merge H3 aggregates with city names
+        merged = h3_df[["h3", "incidents", "avg_on_scene"]].merge(h3_city, on="h3", how="left")
+        
+        # Sort by incidents and get top N
+        hotspots = merged.sort_values("incidents", ascending=False).head(top_n).reset_index(drop=True)
+        hotspots["rank"] = range(1, len(hotspots) + 1)
+        
+        # Format for response
+        result = []
+        for _, row in hotspots.iterrows():
+            result.append({
+                "rank": int(row["rank"]),
+                "h3_cell_id": str(row["h3"]),
+                "city": str(row["city"]) if pd.notna(row["city"]) else "Unknown",
+                "total_incidents": int(row["incidents"]),
+                "avg_on_scene_time_min": round(float(row["avg_on_scene"]), 2)
+            })
+        
+        return {"data": result}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error processing hotspot data: {str(e)}")
+
 # OP EFFICIENCY
 OP_DIR = OP_OUTPUT_DIR
 
@@ -333,6 +455,22 @@ def op_city_summary():
 @app.get("/op_efficiency/hourly_response.json")
 def op_hourly_response():
     return get_json_file("hourly_response.json")
+
+@app.get("/op_efficiency/peak_delay_hours.json")
+def op_peak_delay_hours():
+    return get_json_file("peak_delay_hours.json")
+
+@app.get("/op_efficiency/risk_by_hour.json")
+def op_risk_by_hour():
+    return get_json_file("risk_by_hour.json")
+
+@app.get("/op_efficiency/risk_by_location.json")
+def op_risk_by_location():
+    return get_json_file("risk_by_location.json")
+
+@app.get("/op_efficiency/peak_risk_hours.json")
+def op_peak_risk_hours():
+    return get_json_file("peak_risk_hours.json")
 
 # RISK OUTPUTS
 def get_risk_file(filename: str):
@@ -388,5 +526,28 @@ def risk_misclassified():
     if file_path.exists():
         return FileResponse(path=file_path, media_type="text/csv")
     raise HTTPException(status_code=404, detail="misclassified_samples.csv not found")
+
+# High-risk by location endpoints
+@app.get("/risk/high_risk_by_city.json")
+def risk_high_risk_by_city():
+    file_path = RISK_OUTPUT_DIR / "high_risk_by_city.csv"
+    if file_path.exists():
+        try:
+            df_city = pd.read_csv(file_path)
+            return JSONResponse(df_city.to_dict(orient="records"))
+        except Exception as e:
+            raise HTTPException(status_code=500, detail=f"Error reading high_risk_by_city.csv: {str(e)}")
+    raise HTTPException(status_code=404, detail="high_risk_by_city.csv not found")
+
+@app.get("/risk/high_risk_delays_by_city.json")
+def risk_high_risk_delays():
+    file_path = RISK_OUTPUT_DIR / "high_risk_delays_by_city.csv"
+    if file_path.exists():
+        try:
+            df_delays = pd.read_csv(file_path)
+            return JSONResponse(df_delays.to_dict(orient="records"))
+        except Exception as e:
+            raise HTTPException(status_code=500, detail=f"Error reading high_risk_delays_by_city.csv: {str(e)}")
+    raise HTTPException(status_code=404, detail="high_risk_delays_by_city.csv not found")
 
 

@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import {
-  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,BarChart, Bar
+  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar
 } from "recharts";
 
 import {
   fetchOpKpis,
   fetchOpTimeTrends,
   fetchOpDistributions,
-  fetchOpPercentiles,
   fetchOpDelayBuckets,
-  fetchOpHourlyResponse, // <-- new
+  fetchOpHourlyResponse,
+  fetchOpPeakDelayHours,
 } from "../api/gemmaApi";
 
 // ---------- KPI CARD ----------
@@ -64,9 +64,9 @@ export default function OperationalEfficiency() {
   const [kpis, setKpis] = useState({});
   const [trends, setTrends] = useState([]);
   const [dists, setDists] = useState({});
-  const [percentiles, setPercentiles] = useState({});
   const [delayBuckets, setDelayBuckets] = useState([]);
   const [hourly, setHourly] = useState([]);
+  const [peakDelayHours, setPeakDelayHours] = useState({});
 
   useEffect(() => {
     fetchOpKpis().then(setKpis);
@@ -78,9 +78,9 @@ export default function OperationalEfficiency() {
       });
       setDists(smoothed);
     });
-    fetchOpPercentiles().then(setPercentiles);
     fetchOpDelayBuckets().then(setDelayBuckets);
     fetchOpHourlyResponse().then(setHourly);
+    fetchOpPeakDelayHours().then(setPeakDelayHours);
   }, []);
 
   return (
@@ -176,34 +176,6 @@ export default function OperationalEfficiency() {
         </ResponsiveContainer>
       </div>
 
-      {/* PERCENTILES */}
-<div className="chart-card">
-  <h2>Response Time Percentiles</h2>
-  <ResponsiveContainer width="100%" height={260}>
-    <BarChart
-      layout="vertical"
-      data={[
-        { label: "p50", value: percentiles.p50 },
-        { label: "p75", value: percentiles.p75 },
-        { label: "p90", value: percentiles.p90 },
-        { label: "p95", value: percentiles.p95 },
-        { label: "max", value: percentiles.max },
-      ]}
-    >
-      <CartesianGrid strokeDasharray="3 3" />
-      <XAxis type="number" />
-      <YAxis dataKey="label" type="category" width={60} />
-      <Tooltip />
-      <Bar
-        dataKey="value"
-        fill="#c8a2c8"
-        radius={[6, 6, 6, 6]}
-      />
-    </BarChart>
-  </ResponsiveContainer>
-</div>
-
-
       {/* DELAY BUCKETS */}
 <div className="chart-card">
   <h2>Delay Buckets (Response)</h2>
@@ -221,6 +193,50 @@ export default function OperationalEfficiency() {
     </BarChart>
   </ResponsiveContainer>
 </div>
+
+      {/* PEAK DELAY HOURS SUMMARY */}
+      <div className="chart-card">
+        <h2>Peak Delay Hours (SLA &gt; 8 min)</h2>
+        <div style={{ padding: '16px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px', marginBottom: '20px' }}>
+            <div style={{ padding: '12px', backgroundColor: '#f5f5f5', borderRadius: '8px', border: '1px solid #ddd' }}>
+              <div style={{ fontSize: '12px', color: '#666', marginBottom: '4px' }}>Worst Hour (Most Delays)</div>
+              <div style={{ fontSize: '20px', fontWeight: 'bold', color: '#a463a8' }}>
+                {peakDelayHours.worst_hour || '--'}
+              </div>
+            </div>
+            <div style={{ padding: '12px', backgroundColor: '#f5f5f5', borderRadius: '8px', border: '1px solid #ddd' }}>
+              <div style={{ fontSize: '12px', color: '#666', marginBottom: '4px' }}>Best Hour (Fewest Delays)</div>
+              <div style={{ fontSize: '20px', fontWeight: 'bold', color: '#7d4b7d' }}>
+                {peakDelayHours.best_hour || '--'}
+              </div>
+            </div>
+            <div style={{ padding: '12px', backgroundColor: '#f5f5f5', borderRadius: '8px', border: '1px solid #ddd' }}>
+              <div style={{ fontSize: '12px', color: '#666', marginBottom: '4px' }}>Total Delayed Incidents</div>
+              <div style={{ fontSize: '20px', fontWeight: 'bold', color: '#666' }}>
+                {peakDelayHours.total_delayed_incidents?.toLocaleString() || '--'}
+              </div>
+            </div>
+          </div>
+
+          {peakDelayHours.peak_hours && peakDelayHours.peak_hours.length > 0 && (
+            <div>
+              <h3 style={{ margin: '0 0 12px 0', fontSize: '14px', color: '#333' }}>Delayed Incidents by Hour</h3>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))', gap: '8px' }}>
+                {peakDelayHours.peak_hours.map((hour, idx) => (
+                  <div key={idx} style={{ padding: '10px', backgroundColor: '#ffe6f2', borderRadius: '6px', border: '1px solid #c8a2c8' }}>
+                    <div style={{ fontSize: '13px', fontWeight: 'bold', color: '#a463a8' }}>{hour.hour}</div>
+                    <div style={{ fontSize: '12px', color: '#333', marginTop: '4px' }}>
+                      {hour.delayed_incident_count.toLocaleString()} incidents
+                    </div>
+                    <div style={{ fontSize: '11px', color: '#999' }}>{hour.pct_of_total_delays}% of delays</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
 
     </div>
   );

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { fetchOpCitySummary } from "../api/gemmaApi";
+import { fetchOpCitySummary, fetchGeoHotspotTable } from "../api/gemmaApi";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from "recharts";
 
 export default function H3GeoMap() {
@@ -12,14 +12,26 @@ export default function H3GeoMap() {
   });
   
   const [citySummary, setCitySummary] = useState([]);
-  fetchOpCitySummary()
-  .then(data => {
-    if (!data) return;
-    // Ensure sorting highest → lowest
-    const sorted = [...data].sort((a, b) => b.incidents - a.incidents);
-    setCitySummary(sorted);
-  })
-  .catch(console.error);
+  const [hotspotTable, setHotspotTable] = useState([]);
+
+  useEffect(() => {
+    fetchOpCitySummary()
+      .then(data => {
+        if (!data) return;
+        // Ensure sorting highest → lowest
+        const sorted = [...data].sort((a, b) => b.incidents - a.incidents);
+        setCitySummary(sorted);
+      })
+      .catch(console.error);
+
+    fetchGeoHotspotTable(10)
+      .then(response => {
+        if (response?.data) {
+          setHotspotTable(response.data);
+        }
+      })
+      .catch(console.error);
+  }, []);
 
 
 
@@ -130,12 +142,44 @@ export default function H3GeoMap() {
     boxShadow: "0 4px 16px rgba(0,0,0,0.15)",
   };
 
+  const tableContainerStyle = {
+    width: "100%",
+    backgroundColor: "#ffffff",
+    borderRadius: "16px",
+    boxShadow: "0 4px 16px rgba(0,0,0,0.15)",
+    overflow: "hidden",
+  };
+
+  const tableStyle = {
+    width: "100%",
+    borderCollapse: "collapse",
+    fontSize: "14px",
+  };
+
+  const thStyle = {
+    backgroundColor: "#7b5ea3",
+    color: "#ffffff",
+    padding: "12px 16px",
+    textAlign: "left",
+    fontWeight: "600",
+  };
+
+  const tdStyle = {
+    padding: "12px 16px",
+    borderBottom: "1px solid #e5e7eb",
+  };
+
+  const rankStyle = {
+    ...tdStyle,
+    fontWeight: "600",
+    color: "#7b5ea3",
+  };
+
   return (
     <div style={pageStyle}>
       <h1 style={{ color: "#7b5ea3", fontSize: "32px", fontWeight: 700 }}>
-  Geospatial Analysis
-</h1>
-
+        Geospatial Analysis
+      </h1>
 
       {/* KPI Cards Row */}
       <div style={cardsRowStyle}>
@@ -163,6 +207,45 @@ export default function H3GeoMap() {
           title="H3 Geo Map"
           style={{ width: "100%", height: "100%", border: 0 }}
         />
+      </div>
+
+      {/* Hotspot Table */}
+      <div style={{ marginTop: "24px" }}>
+        <h2 style={{ fontSize: "20px", fontWeight: "700", color: "#7b5ea3", marginBottom: "16px" }}>
+          Top Incident Hotspots
+        </h2>
+        <div style={tableContainerStyle}>
+          <table style={tableStyle}>
+            <thead>
+              <tr>
+                <th style={thStyle}>Rank</th>
+                <th style={thStyle}>H3 Cell ID</th>
+                <th style={thStyle}>City</th>
+                <th style={thStyle}>Total Incidents</th>
+                <th style={thStyle}>Avg. On-Scene Time (min)</th>
+              </tr>
+            </thead>
+            <tbody>
+              {hotspotTable.length > 0 ? (
+                hotspotTable.map((row, idx) => (
+                  <tr key={idx}>
+                    <td style={rankStyle}>{row.rank}</td>
+                    <td style={tdStyle}>{row.h3_cell_id}</td>
+                    <td style={tdStyle}>{row.city}</td>
+                    <td style={tdStyle}>{row.total_incidents.toLocaleString()}</td>
+                    <td style={tdStyle}>{row.avg_on_scene_time_min.toFixed(2)}</td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="5" style={{ ...tdStyle, textAlign: "center", color: "#999" }}>
+                    Loading data...
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

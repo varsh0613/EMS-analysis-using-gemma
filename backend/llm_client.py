@@ -117,8 +117,8 @@ class LLMClient:
             "options": {
                 "temperature": 0.2,
                 "top_p": 0.85,
-                "num_ctx": 2048,
-                "num_predict": 1024
+                "num_ctx": 4096,
+                "num_predict": 2048
             }
         }
 

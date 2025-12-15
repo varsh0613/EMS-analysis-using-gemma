@@ -41,6 +41,15 @@ export const fetchOpPercentiles = () => apiGet(`/op_efficiency/response_percenti
 export const fetchOpDelayBuckets = () => apiGet(`/op_efficiency/delay_buckets.json`, {});
 export const fetchOpCitySummary = () => apiGet(`/op_efficiency/city_summary.json`, []);
 export const fetchOpHourlyResponse = () => apiGet(`/op_efficiency/hourly_response.json`, []);
+export const fetchOpPeakDelayHours = () => apiGet(`/op_efficiency/peak_delay_hours.json`, {});
+export const fetchOpRiskByHour = () => apiGet(`/op_efficiency/risk_by_hour.json`, []);
+export const fetchOpRiskByLocation = () => apiGet(`/op_efficiency/risk_by_location.json`, []);
+export const fetchOpPeakRiskHours = () => apiGet(`/op_efficiency/peak_risk_hours.json`, {});
+
+// ===============================
+// GEO HOTSPOT API
+// ===============================
+export const fetchGeoHotspotTable = (top_n = 10) => apiGet(`/geo/hotspot_table?top_n=${top_n}`, { data: [] });
 
 // ===============================
 // RISK DASHBOARD API
@@ -86,3 +95,7 @@ export const fetchMisclassifiedCSV = async () => {
     return null;
   }
 };
+
+// High-risk by location
+export const fetchRiskHighRiskByCity = () => apiGet("/risk/high_risk_by_city.json", []);
+export const fetchRiskHighRiskDelaysByCity = () => apiGet("/risk/high_risk_delays_by_city.json", []);

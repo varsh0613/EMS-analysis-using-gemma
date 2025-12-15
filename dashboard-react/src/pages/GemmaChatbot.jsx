@@ -185,10 +185,10 @@ export default function Chatbot() {
               <h2>Welcome to Gemma Assistant</h2>
               <p>Ask me about EMS protocols, data analysis, or anything else</p>
               <div className="suggestion-buttons">
-                <button onClick={() => setInput("What's the busiest city?")}>
-                  Busiest City
+                <button onClick={() => setInput("Which city has the most incidents?")}>
+                  Top City
                 </button>
-                <button onClick={() => setInput("Which hour has the most calls?")}>
+                <button onClick={() => setInput("Which hour has the most incidents?")}>
                   Peak Hour
                 </button>
                 <button onClick={() => setInput("8-year-old with allergic reaction")}>
