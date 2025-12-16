@@ -1,18 +1,18 @@
 [
   {
-    "delay_bucket": "0–5 min",
+    "delay_bucket": "0-5 min",
     "count": 21047
   },
   {
-    "delay_bucket": "5–10",
+    "delay_bucket": "5-10",
     "count": 5886
   },
   {
-    "delay_bucket": "10–15",
+    "delay_bucket": "10-15",
     "count": 1344
   },
   {
-    "delay_bucket": "15–30",
+    "delay_bucket": "15-30",
     "count": 1183
   },
   {

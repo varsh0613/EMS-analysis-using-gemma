@@ -70,6 +70,21 @@ try:
             print(f"Loaded peak risk hours: {peak_risk_hours.get('worst_hour_for_high_risk', 'N/A')}")
 except Exception as e:
     print(f"Warning: Could not load peak_risk_hours.json: {e}")
+
+# ---- Load protocol names from RAG store ----
+AVAILABLE_PROTOCOLS: Dict[str, str] = {}
+try:
+    extracted_text_dir = RAG_STORE_PATH / "extracted_text"
+    if extracted_text_dir.exists():
+        for protocol_file in extracted_text_dir.glob("*.json"):
+            # Extract protocol name from filename (remove numbering and extensions)
+            protocol_name = protocol_file.stem
+            # Normalize the name
+            AVAILABLE_PROTOCOLS[protocol_name.lower()] = protocol_name
+        print(f"Loaded {len(AVAILABLE_PROTOCOLS)} available protocols from RAG store")
+except Exception as e:
+    print(f"Warning: Could not load protocols from RAG store: {e}")
+
 df.fillna("", inplace=True)
 
 # Extract hour from time column for analysis
@@ -110,6 +125,52 @@ if RAG_STORE_PATH.exists():
         except Exception:
             pass
 
+# ---------------- Protocol Retrieval ----------------
+
+def retrieve_relevant_protocols(query: str, top_k: int = 3) -> List[str]:
+    """
+    Retrieve relevant protocols from RAG store based on user query.
+    Returns list of actual protocol names that exist in RAG store.
+    """
+    q = query.lower()
+    matching_protocols = []
+    
+    # Keywords to protocol matching
+    keyword_map = {
+        "allergic": ["allergic reaction", "anaphylaxis"],
+        "cardiac arrest": ["cardiac arrest"],
+        "chest pain": ["chest pain", "acute coronary syndrome", "stemi"],
+        "asthma": ["bronchospasm", "asthma", "copd"],
+        "respiratory": ["respiratory", "respiratory distress", "shortness of breath", "airway", "breathing", "breathe"],
+        "seizure": ["seizure"],
+        "stroke": ["stroke", "tia", "cva"],
+        "trauma": ["traumatic", "trauma"],
+        "shock": ["shock"],
+        "drowning": ["drowning", "submersion"],
+        "burns": ["burns"],
+        "pediatric": ["pediatric", "pedi"],
+        "newborn": ["newborn", "resuscitation"],
+        "obstetric": ["obstetrical", "delivery", "obstetric"],
+        "sepsis": ["sepsis"],
+        "pain management": ["pain management"],
+        "tachycardia": ["tachycardia"],
+        "bradycardia": ["bradycardia"],
+        "nausea": ["nausea", "vomiting"],
+        "syncope": ["syncope", "fainting"],
+        "abortion": ["abortion", "miscarriage"],
+    }
+    
+    # Search for matching protocols
+    for keyword, related_terms in keyword_map.items():
+        if keyword in q or any(term in q for term in related_terms):
+            for protocol_lower, protocol_name in AVAILABLE_PROTOCOLS.items():
+                # Check if protocol matches the keyword category
+                if any(term in protocol_lower for term in related_terms):
+                    if protocol_name not in matching_protocols:
+                        matching_protocols.append(protocol_name)
+    
+    return matching_protocols[:top_k]
+
 # ---------------- Intent Detection ----------------
 
 def detect_intent(msg: str) -> str:
@@ -118,7 +179,15 @@ def detect_intent(msg: str) -> str:
         return "greeting"
     if any(k in s for k in ["delay", "delayed", "response time", "critical", "window", "peak", "when", "hour"]):
         return "operational"
-    if any(k in s for k in ["protocol", "ems", "triage", "cardiac", "trauma"]):
+    # EMS intent for: protocols, symptoms, patient info, age-based scenarios
+    ems_keywords = [
+        "protocol", "ems", "triage", "cardiac", "trauma", "patient", "symptom", 
+        "age", "breathing", "breathe", "not breathing", "stop breathing", "allergic", 
+        "chest pain", "seizure", "burn", "wound", "injury", "drowning", "shock",
+        "collapse", "unresponsive", "unconscious", "coma", "stroke", "sepsis",
+        "respiratory", "asthma", "copd", "pneumonia", "infarction"
+    ]
+    if any(k in s for k in ems_keywords):
         return "ems"
     if any(k in s for k in ["why", "explain", "trend"]):
         return "reason"
@@ -240,18 +309,35 @@ User question: {question}
 Answer using the specific numbers, hours, and percentages from the data provided."""
 
 
-def ems_prompt(question: str, protocols: List[str]) -> str:
-    return f"""
-You are an EMS clinical assistant.
+def ems_prompt(question: str, relevant_protocols: List[str]) -> str:
+    """
+    Generate EMS prompt with ONLY protocols that exist in RAG store.
+    Ensures the chatbot only recommends existing protocols.
+    """
+    protocol_text = ""
+    if relevant_protocols:
+        protocol_text = "AVAILABLE PROTOCOLS TO REFERENCE:\n"
+        for protocol in relevant_protocols:
+            protocol_text += f"- {protocol}\n"
+        protocol_text += "\n**IMPORTANT**: Only mention and recommend protocols listed above. Do not suggest protocols outside this list.\n"
+    else:
+        protocol_text = "No specific protocols matched your query, but use general EMS guidelines.\n"
+    
+    return f"""You are an EMS clinical protocol assistant.
 
-PROTOCOLS:
-{protocols[:1] if protocols else "General EMS guidelines."}
+{protocol_text}
 
-QUESTION:
+USER QUESTION:
 {question}
 
-Respond with sound EMS judgment.
-"""
+INSTRUCTIONS:
+1. If patient age and symptoms are given, identify the applicable protocol from the AVAILABLE PROTOCOLS list above.
+2. **ONLY mention protocol names that exist in the list above** - do NOT recommend protocols outside this list.
+3. Once you identify the applicable protocol, describe the recommended steps from that protocol.
+4. Be concise and actionable in your response.
+5. Always reference the specific protocol name you are recommending.
+
+Respond with sound EMS judgment based on available protocols."""
 
 # ---------------- CHAT REQUEST ----------------
 class ChatRequest(BaseModel):
@@ -322,9 +408,15 @@ async def chat(req: ChatRequest):
 
     # ---- EMS REASONING ----
     if intent == "ems":
-        prompt = ems_prompt(msg, RAG_CACHE)
+        # Retrieve relevant protocols from RAG store
+        relevant_protocols = retrieve_relevant_protocols(msg, top_k=5)
+        prompt = ems_prompt(msg, relevant_protocols)
         answer = await run_in_threadpool(llm_client.ask, prompt)
-        return {"answer": answer.strip(), "mode": "ems"}
+        return {
+            "answer": answer.strip(),
+            "mode": "ems",
+            "protocols_referenced": relevant_protocols
+        }
 
     # ---- DATA / WHY / ANALYSIS ----
     if intent == "reason":
