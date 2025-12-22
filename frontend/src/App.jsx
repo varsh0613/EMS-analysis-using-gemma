@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { HashRouter as Router } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 
 import Dataset from "./pages/Dataset";
