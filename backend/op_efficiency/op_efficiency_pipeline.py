@@ -18,8 +18,9 @@ from pathlib import Path
 from typing import List, Dict, Any
 
 # ---------------- CONFIG ----------------
-EDA_CSV = Path(r"C:\Users\SAHARA\OneDrive\Desktop\uni\gemma\eda\eda.csv")
-OUTPUT_DIR = Path(r"C:\Users\SAHARA\OneDrive\Desktop\uni\gemma\op_efficiency\outputs")
+# Use relative paths from op_efficiency folder
+EDA_CSV = Path(__file__).parent.parent / "eda" / "eda.csv"
+OUTPUT_DIR = Path(__file__).parent / "outputs"
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 # ---------------- HELPERS ----------------

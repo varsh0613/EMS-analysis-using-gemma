@@ -33,7 +33,8 @@ app.add_middleware(
 )
 
 # ---------------- Config ----------------
-BASE_DIR = Path(r"C:\Users\SAHARA\OneDrive\Desktop\uni\gemma")
+# Use relative paths from backend folder
+BASE_DIR = Path(__file__).parent
 CSV_PATH = BASE_DIR / "eda" / "eda.csv"
 EDA_OUTPUT_DIR = BASE_DIR / "eda" / "outputs"
 OP_OUTPUT_DIR = BASE_DIR / "op_efficiency" / "outputs"
@@ -473,8 +474,8 @@ def geo_summary():
 @app.get("/geo/hotspot_table")
 def geo_hotspot_table(top_n: int = 10):
     """Return top N H3 hotspots with incident counts and on-scene times."""
-    incidents_path = BASE_DIR / "geospatial" / "incidents_with_h3.csv"
-    h3_path = BASE_DIR / "geospatial" / "h3_hex_summary.csv"
+    incidents_path = Path(__file__).parent / "geospatial" / "incidents_with_h3.csv"
+    h3_path = Path(__file__).parent / "geospatial" / "h3_hex_summary.csv"
     
     if not incidents_path.exists() or not h3_path.exists():
         raise HTTPException(status_code=404, detail="Geospatial files not found")

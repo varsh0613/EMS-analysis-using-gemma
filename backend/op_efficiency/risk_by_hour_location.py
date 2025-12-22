@@ -17,10 +17,10 @@ import json
 from pathlib import Path
 from typing import Dict, List, Any
 
-# Config
-EDA_CSV = Path(r"C:\Users\SAHARA\OneDrive\Desktop\uni\gemma\eda\eda.csv")
-RISK_OUTPUTS = Path(r"C:\Users\SAHARA\OneDrive\Desktop\uni\gemma\risk_score\outputs")
-OP_OUTPUT_DIR = Path(r"C:\Users\SAHARA\OneDrive\Desktop\uni\gemma\op_efficiency\outputs")
+# Config - Use relative paths from op_efficiency folder
+EDA_CSV = Path(__file__).parent.parent / "eda" / "eda.csv"
+RISK_OUTPUTS = Path(__file__).parent.parent / "risk_score" / "outputs"
+OP_OUTPUT_DIR = Path(__file__).parent / "outputs"
 OP_OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 def safe_round(x, nd=2):

@@ -82,21 +82,24 @@ def add_hex_geometry(agg):
 # =======================================================
 def save_outputs(df_incidents, gdf_hex):
     print("[6] Saving outputs...")
+    
+    from pathlib import Path
+    output_dir = Path(__file__).parent
 
     # Incident-level CSV with H3 mapping
     df_incidents.to_csv(
-        r"C:\Users\SAHARA\OneDrive\Desktop\uni\gemma\geospatial\incidents_with_h3.csv",
+        output_dir / "incidents_with_h3.csv",
         index=False
     )
 
     # Aggregated H3 hex-level CSV + GeoJSON
     gdf_hex.to_csv(
-        r"C:\Users\SAHARA\OneDrive\Desktop\uni\gemma\geospatial\h3_hex_summary.csv",
+        output_dir / "h3_hex_summary.csv",
         index=False
     )
 
     gdf_hex.to_file(
-        r"C:\Users\SAHARA\OneDrive\Desktop\uni\gemma\geospatial\h3_hex_summary.geojson",
+        output_dir / "h3_hex_summary.geojson",
         driver="GeoJSON"
     )
 
@@ -106,7 +109,10 @@ def save_outputs(df_incidents, gdf_hex):
 # MAIN
 # =======================================================
 def main():
-    df = load_incidents(r"C:\Users\SAHARA\OneDrive\Desktop\uni\gemma\eda\eda.csv")
+    from pathlib import Path
+    # Path from geospatial folder to eda folder (both in backend)
+    eda_csv = Path(__file__).parent.parent / "eda" / "eda.csv"
+    df = load_incidents(str(eda_csv))
 
     df = compute_on_scene_time(df)
     df = add_h3(df, resolution=8)

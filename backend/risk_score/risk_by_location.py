@@ -6,8 +6,10 @@ Analyze high-risk EMS cases by location (city/county)
 import os
 import pandas as pd
 import numpy as np
+from pathlib import Path
 
-OUT_DIR = r"C:\Users\SAHARA\OneDrive\Desktop\uni\gemma\risk_score\outputs"
+# Use relative paths from risk_score folder
+OUT_DIR = str(Path(__file__).parent / "outputs")
 
 def analyze_risk_by_location():
     """Load test set with risk labels and analyze by location"""

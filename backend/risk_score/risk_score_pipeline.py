@@ -35,8 +35,9 @@ from tqdm import tqdm
 from llm_client import LLMClient
 
 # ------------------------- CONFIG -------------------------
-INPUT_CSV = r"C:\Users\SAHARA\OneDrive\Desktop\uni\gemma\eda\eda.csv"
-OUT_DIR = r"C:\Users\SAHARA\OneDrive\Desktop\uni\gemma\risk_score\outputs"
+# Use relative paths from risk_score folder
+INPUT_CSV = str(Path(__file__).parent.parent / "eda" / "eda.csv")
+OUT_DIR = str(Path(__file__).parent / "outputs")
 os.makedirs(OUT_DIR, exist_ok=True)
 
 N_CLUSTERS = 30
