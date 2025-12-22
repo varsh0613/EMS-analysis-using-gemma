@@ -29,3 +29,4 @@ dash-bootstrap-components
 plotly 
 pydantic
 fastapi
+uvicorn
