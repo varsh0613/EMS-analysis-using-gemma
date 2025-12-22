@@ -45,7 +45,7 @@ export default function H3GeoMap() {
   };
 
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/geo/summary")
+    fetch("https://ems-analysis-using-gemma.onrender.com/geo/summary")
       .then(res => res.json())
       .then(data => {
         const hexes = data.features || [];
